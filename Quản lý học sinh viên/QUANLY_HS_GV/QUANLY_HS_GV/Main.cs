@@ -13,8 +13,6 @@ namespace QUANLY_HS_GV
 {
     public partial class frmMain : Form
     {
-        public partial class frmMain : Form
-    {
         public frmMain()
         {
             InitializeComponent();
@@ -44,6 +42,5 @@ namespace QUANLY_HS_GV
         {
             GiaoVien gv = new GiaoVien();
             gv.ShowDialog();
-        }
         }
 }
