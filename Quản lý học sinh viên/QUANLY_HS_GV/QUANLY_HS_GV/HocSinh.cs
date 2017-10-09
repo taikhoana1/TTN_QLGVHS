@@ -31,5 +31,28 @@ namespace QUANLY_HS_GV
             //this.hocSinhTableAdapter.Fill(this.qUANLY_HS_GVDataSet.HocSinh);
 
         }
+
+        private int KTTrung(string a)
+        {
+            for (int i = 0; i < dgvHocsinh.Rows.Count; i++)
+            {
+                if (Convert.ToString(dgvHocsinh.Rows[i].Cells[0].Value) == a)
+                {
+                    return 1;
+                }
+            }
+            return 2;
+        }
+
+        void Reset(object sender, EventArgs e)
+        {
+            txtIDHs.Text = "";
+            txtTenHS.Text = "";
+            cboGioitinh.Text = "";
+            dtNgaysinh.Text = "";
+            cbo_Lop.Text = "";
+            cbo_Monhoc.Text = "";
+        }
+
     }
 }
