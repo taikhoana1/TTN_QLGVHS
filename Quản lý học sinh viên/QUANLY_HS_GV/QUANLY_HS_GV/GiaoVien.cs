@@ -153,6 +153,76 @@ namespace QUANLY_HS_GV
                 btnShow_Click(sender, e);
             }
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int id = 1;
+            string xoa;
+            if (dgvGiaovien.SelectedRows.Count == 0) MessageBox.Show("Chọn ít nhất 1 dòng để xóa!...");
+            else for (int i = 0; i < dgvGiaovien.Rows.Count; i++) if (dgvGiaovien.Rows[i].Selected)
+                    {
+                        //SqlConnection con1 = new SqlConnection(@"Data Source=(local);Initial Catalog=QUANLY_HS_GV;Integrated Security=True");
+                        SqlConnection con1 = new SqlConnection(Connect.getconnect());
+                        try
+                        {
+                            con1.Open();
+                            if (con1.State == ConnectionState.Open)
+                            {
+                                for (int j = 0; j < dgvGiaovien.RowCount; j++)
+                                {
+                                    if (dgvGiaovien.Rows[j].Selected == true)
+                                    {
+                                        if (id > 0)
+                                        {
+                                            DialogResult r = MessageBox.Show("Are you sure?", "Confirm!!!", MessageBoxButtons.YesNo);
+                                            if (r == System.Windows.Forms.DialogResult.Yes)
+                                            {
+                                                xoa = dgvGiaovien.Rows[j].Cells[0].Value.ToString();
+                                                SqlCommand com1 = new SqlCommand();
+                                                com1.Connection = con1;
+                                                com1.CommandText = "Delete_GV";
+                                                com1.CommandType = CommandType.StoredProcedure;
+                                                com1.Parameters.AddWithValue("@ID_GV", xoa);
+                                                com1.ExecuteNonQuery();
+                                                dgvGiaovien.Rows.RemoveAt(j);
+                                                j--;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Connection crashed!");
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+        }
+
+        private void bntThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dgvGiaovien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!dgvGiaovien.CurrentRow.IsNewRow)
+            {
+                txtIDGv.Text = dgvGiaovien.CurrentRow.Cells[0].Value.ToString();
+                txtTenGV.Text = dgvGiaovien.CurrentRow.Cells[1].Value.ToString();
+                txtQueQuan.Text = dgvGiaovien.CurrentRow.Cells[2].Value.ToString();
+                cboGioitinh.Text = dgvGiaovien.CurrentRow.Cells[3].Value.ToString();
+                txtCMND.Text = dgvGiaovien.CurrentRow.Cells[4].Value.ToString();
+                dtNgaysinh.Text = dgvGiaovien.CurrentRow.Cells[5].Value.ToString();
+                txtChucvu.Text = dgvGiaovien.CurrentRow.Cells[6].Value.ToString();
+                cbo_Monhoc.Text = dgvGiaovien.CurrentRow.Cells[7].Value.ToString();
+                cbo_Lop.Text = dgvGiaovien.CurrentRow.Cells[8].Value.ToString();
+            }
+        }
         
     }
 }
