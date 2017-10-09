@@ -147,6 +147,102 @@ namespace QUANLY_HS_GV
                 btnShow_Click(sender, e);
             }
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int id = 1;
+            string xoa;
+            if (dgvHocsinh.SelectedRows.Count == 0) MessageBox.Show("Chọn ít nhất 1 dòng để xóa!...");
+            else
+                for (int i = 0; i < dgvHocsinh.Rows.Count; i++)
+                    if (dgvHocsinh.Rows[i].Selected)
+                    {
+                        //SqlConnection con1 = new SqlConnection(@"Data Source=(local);Initial Catalog=QUANLY_HS_GV;Integrated Security=True");
+                        SqlConnection con1 = new SqlConnection(Connect.getconnect());
+                        try
+                        {
+                            con1.Open();
+                            if (con1.State == ConnectionState.Open)
+                            {
+                                for (int j = 0; j < dgvHocsinh.RowCount; j++)
+                                {
+                                    if (dgvHocsinh.Rows[j].Selected == true)
+                                    {
+                                        if (id > 0)
+                                        {
+                                            DialogResult r = MessageBox.Show("Are you sure?", "Confirm!!!", MessageBoxButtons.YesNo);
+                                            if (r == System.Windows.Forms.DialogResult.Yes)
+                                            {
+                                                xoa = dgvHocsinh.Rows[j].Cells[0].Value.ToString();
+                                                SqlCommand com1 = new SqlCommand();
+                                                com1.Connection = con1;
+                                                com1.CommandText = "Delete_HS";
+                                                com1.CommandType = CommandType.StoredProcedure;
+                                                com1.Parameters.AddWithValue("@ID_HS", xoa);
+                                                com1.ExecuteNonQuery();
+                                                dgvHocsinh.Rows.RemoveAt(j);
+                                                j--;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Connection crashed!");
+                            }
+                        }
+                        catch
+                        {
 
+                        }
+                    }
+        }
+
+        private void bntThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dgvHocsinh_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!dgvHocsinh.CurrentRow.IsNewRow)
+            {
+                txtIDHs.Text = dgvHocsinh.CurrentRow.Cells[0].Value.ToString();
+                txtTenHS.Text = dgvHocsinh.CurrentRow.Cells[1].Value.ToString();
+                txtquequan.Text = dgvHocsinh.CurrentRow.Cells[2].Value.ToString();
+                cboGioitinh.Text = dgvHocsinh.CurrentRow.Cells[3].Value.ToString();
+                dtNgaysinh.Text = dgvHocsinh.CurrentRow.Cells[4].Value.ToString();
+                cbo_Monhoc.Text = dgvHocsinh.CurrentRow.Cells[5].Value.ToString();
+                cbo_Lop.Text = dgvHocsinh.CurrentRow.Cells[6].Value.ToString();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (cboSearch.Text == "Mã học sinh")
+            {
+                //SqlConnection con = new SqlConnection(@"Data Source=(local);Initial Catalog=QUANLY_HS_GV;Integrated Security=True");
+                SqlConnection con = new SqlConnection(Connect.getconnect());
+                SqlDataAdapter sda = new SqlDataAdapter("select *from HocSinh where ID_Hs like '" + txtSearch.Text + "%'", con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                dgvHocsinh.DataSource = dt;
+            }
+            else
+                if (cboSearch.Text == "Họ tên học sinh")
+            {
+                //SqlConnection con = new SqlConnection(@"Data Source=(local);Initial Catalog=QUANLY_HS_GV;Integrated Security=True");
+                SqlConnection con = new SqlConnection(Connect.getconnect());
+                SqlDataAdapter sdap = new SqlDataAdapter("select *from HocSinh where HoTen like '" + txtSearch.Text + "%'", con);
+                DataTable data = new DataTable();
+                sdap.Fill(data);
+                dgvHocsinh.DataSource = data;
+            }
+        }
+
+        private void cboSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
