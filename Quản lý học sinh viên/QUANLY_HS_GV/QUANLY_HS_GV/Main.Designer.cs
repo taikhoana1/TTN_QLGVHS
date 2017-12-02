@@ -33,7 +33,6 @@
             this.mnuThoat = new System.Windows.Forms.ToolStripMenuItem();
             this.btnthoat = new System.Windows.Forms.Button();
             this.btngiaovien = new System.Windows.Forms.Button();
-            this.btnhuongdan = new System.Windows.Forms.Button();
             this.btnhocsinh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -56,7 +55,7 @@
             // 
             this.btnthoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnthoat.ForeColor = System.Drawing.Color.Red;
-            this.btnthoat.Location = new System.Drawing.Point(413, 239);
+            this.btnthoat.Location = new System.Drawing.Point(413, 175);
             this.btnthoat.Name = "btnthoat";
             this.btnthoat.Size = new System.Drawing.Size(84, 57);
             this.btnthoat.TabIndex = 1;
@@ -75,18 +74,6 @@
             this.btngiaovien.Text = "Giáo Viên";
             this.btngiaovien.UseVisualStyleBackColor = true;
             this.btngiaovien.Click += new System.EventHandler(this.btngiaovien_Click);
-            // 
-            // btnhuongdan
-            // 
-            this.btnhuongdan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnhuongdan.ForeColor = System.Drawing.Color.Blue;
-            this.btnhuongdan.Location = new System.Drawing.Point(413, 167);
-            this.btnhuongdan.Name = "btnhuongdan";
-            this.btnhuongdan.Size = new System.Drawing.Size(84, 57);
-            this.btnhuongdan.TabIndex = 3;
-            this.btnhuongdan.Text = "Hướng dẫn";
-            this.btnhuongdan.UseVisualStyleBackColor = true;
-            this.btnhuongdan.Click += new System.EventHandler(this.btnhuongdan_Click);
             // 
             // btnhocsinh
             // 
@@ -108,7 +95,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(509, 308);
             this.Controls.Add(this.btnhocsinh);
-            this.Controls.Add(this.btnhuongdan);
             this.Controls.Add(this.btngiaovien);
             this.Controls.Add(this.btnthoat);
             this.Name = "frmMain";
@@ -125,7 +111,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuThoat;
         private System.Windows.Forms.Button btnthoat;
         private System.Windows.Forms.Button btngiaovien;
-        private System.Windows.Forms.Button btnhuongdan;
         private System.Windows.Forms.Button btnhocsinh;
     }
 }
